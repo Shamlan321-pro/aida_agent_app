@@ -1,0 +1,123 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "api_configuration_section",
+  "api_server_url",
+  "erpnext_url",
+  "google_api_key",
+  "mongo_uri",
+  "column_break_5",
+  "enable_onboarding",
+  "enable_lead_creation",
+  "widget_configuration_section",
+  "widget_position",
+  "widget_theme",
+  "connection_test_section",
+  "test_connection_btn"
+ ],
+ "fields": [
+  {
+   "fieldname": "api_configuration_section",
+   "fieldtype": "Section Break",
+   "label": "API Configuration"
+  },
+  {
+   "fieldname": "api_server_url",
+   "fieldtype": "Data",
+   "label": "API Server URL",
+   "reqd": 1,
+   "default": "http://localhost:5000"
+  },
+  {
+   "fieldname": "erpnext_url",
+   "fieldtype": "Data",
+   "label": "ERPNext URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "google_api_key",
+   "fieldtype": "Password",
+   "label": "Google API Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mongo_uri",
+   "fieldtype": "Data",
+   "label": "MongoDB URI (Optional)"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enable_onboarding",
+   "fieldtype": "Check",
+   "label": "Enable Onboarding Assistant",
+   "default": 1
+  },
+  {
+   "fieldname": "enable_lead_creation",
+   "fieldtype": "Check",
+   "label": "Enable Lead Creation",
+   "default": 1
+  },
+  {
+   "fieldname": "widget_configuration_section",
+   "fieldtype": "Section Break",
+   "label": "Widget Configuration"
+  },
+  {
+   "fieldname": "widget_position",
+   "fieldtype": "Select",
+   "label": "Widget Position",
+   "options": "bottom-right\nbottom-left\ntop-right\ntop-left",
+   "default": "bottom-right"
+  },
+  {
+   "fieldname": "widget_theme",
+   "fieldtype": "Select",
+   "label": "Widget Theme",
+   "options": "light\ndark",
+   "default": "light"
+  },
+  {
+   "fieldname": "connection_test_section",
+   "fieldtype": "Section Break",
+   "label": "Connection Test"
+  },
+  {
+   "fieldname": "test_connection_btn",
+   "fieldtype": "Button",
+   "label": "Test Connection"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "AIDA Agent App",
+ "name": "AIDA Agent Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

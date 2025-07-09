@@ -1,0 +1,266 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head_include %}
+<link rel="stylesheet" href="/assets/aida_agent_app/css/aida_agent.css">
+<style>
+.aida-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.aida-page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.aida-page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.aida-page-subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+}
+
+.aida-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.aida-feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e8ed;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.aida-feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.aida-feature-icon {
+    font-size: 2.5rem;
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.aida-feature-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.aida-feature-description {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+.aida-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.aida-action-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.aida-action-btn:hover {
+    background: #2980b9;
+    color: white;
+    text-decoration: none;
+}
+
+.aida-action-btn.secondary {
+    background: #95a5a6;
+}
+
+.aida-action-btn.secondary:hover {
+    background: #7f8c8d;
+}
+
+.aida-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+.aida-status-indicator.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.aida-status-indicator.inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+@media (max-width: 768px) {
+    .aida-page-container {
+        padding: 1rem;
+    }
+    
+    .aida-page-title {
+        font-size: 2rem;
+    }
+    
+    .aida-features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .aida-action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="aida-page-container">
+    <div class="aida-page-header">
+        <h1 class="aida-page-title">
+            <i class="fa fa-robot"></i> AIDA Agent
+        </h1>
+        <p class="aida-page-subtitle">
+            Your AI-powered ERPNext assistant for onboarding, support, and lead generation
+        </p>
+        
+        <div class="aida-status-indicator active">
+            <i class="fa fa-check-circle"></i>
+            AIDA Agent is active and ready to help
+        </div>
+    </div>
+    
+    <div class="aida-features-grid">
+        <div class="aida-feature-card">
+            <div class="aida-feature-icon">
+                <i class="fa fa-comments"></i>
+            </div>
+            <h3 class="aida-feature-title">Smart Chat Assistant</h3>
+            <p class="aida-feature-description">
+                Get instant help with ERPNext features, navigation, and best practices. 
+                AIDA understands your questions and provides contextual assistance.
+            </p>
+        </div>
+        
+        <div class="aida-feature-card">
+            <div class="aida-feature-icon">
+                <i class="fa fa-graduation-cap"></i>
+            </div>
+            <h3 class="aida-feature-title">Interactive Onboarding</h3>
+            <p class="aida-feature-description">
+                New to ERPNext? AIDA guides you through setup, configuration, and 
+                essential workflows to get you started quickly.
+            </p>
+        </div>
+        
+        <div class="aida-feature-card">
+            <div class="aida-feature-icon">
+                <i class="fa fa-users"></i>
+            </div>
+            <h3 class="aida-feature-title">Lead Generation</h3>
+            <p class="aida-feature-description">
+                Automatically discover and create potential leads based on your 
+                business criteria and target market preferences.
+            </p>
+        </div>
+    </div>
+    
+    <div class="aida-action-buttons">
+        <button class="aida-action-btn" onclick="openAidaChat()">
+            <i class="fa fa-comments"></i>
+            Start Chat
+        </button>
+        
+        {% if settings.enable_lead_creation %}
+        <button class="aida-action-btn" onclick="openAidaLeads()">
+            <i class="fa fa-users"></i>
+            Generate Leads
+        </button>
+        {% endif %}
+        
+        <a href="/app/aida-agent-settings" class="aida-action-btn secondary">
+            <i class="fa fa-cog"></i>
+            Settings
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="/assets/aida_agent_app/js/aida_agent.js"></script>
+<script>
+// Ensure AIDA Agent is initialized
+frappe.ready(() => {
+    // Force initialization if not already done
+    if (!window.aidaAgent && frappe.boot && frappe.boot.user && frappe.boot.user.name !== 'Guest') {
+        window.aidaAgent = new AidaAgent();
+    }
+    
+    // Show welcome message after a short delay
+    setTimeout(() => {
+        if (window.aidaAgent) {
+            console.log('AIDA Agent is ready on the dedicated page');
+        }
+    }, 1000);
+});
+
+// Fallback functions if AIDA Agent is not loaded
+function openAidaChat() {
+    if (window.openAidaChat) {
+        window.openAidaChat();
+    } else {
+        frappe.msgprint({
+            title: 'AIDA Agent Loading',
+            message: 'AIDA Agent is still loading. Please try again in a moment.',
+            indicator: 'blue'
+        });
+    }
+}
+
+function openAidaLeads() {
+    if (window.openAidaLeads) {
+        window.openAidaLeads();
+    } else {
+        frappe.msgprint({
+            title: 'AIDA Agent Loading',
+            message: 'AIDA Agent is still loading. Please try again in a moment.',
+            indicator: 'blue'
+        });
+    }
+}
+</script>
+{% endblock %}

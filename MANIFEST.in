@@ -1,0 +1,19 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+include *.yml
+recursive-include aida_agent_app *.css
+recursive-include aida_agent_app *.csv
+recursive-include aida_agent_app *.html
+recursive-include aida_agent_app *.ico
+recursive-include aida_agent_app *.js
+recursive-include aida_agent_app *.json
+recursive-include aida_agent_app *.md
+recursive-include aida_agent_app *.png
+recursive-include aida_agent_app *.py
+recursive-include aida_agent_app *.svg
+recursive-include aida_agent_app *.txt
+recursive-exclude aida_agent_app *.pyc

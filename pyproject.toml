@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools >= 64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aida_agent_app"
+version = "1.0.0"
+description = "AIDA AI Agent App for ERPNext - Intelligent onboarding and lead generation"
+authors = [{name = "AIDA AI", email = "support@aida-ai.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.8"
+dependencies = [
+    "frappe>=14.0.0",
+    "requests>=2.28.0"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Frappe",
+    "Topic :: Office/Business",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+keywords = ["erpnext", "frappe", "ai", "agent", "onboarding", "lead-generation"]
+
+[project.urls]
+Homepage = "https://github.com/aida-ai/aida-taskforge-agent"
+Repository = "https://github.com/aida-ai/aida-taskforge-agent"
+Issues = "https://github.com/aida-ai/aida-taskforge-agent/issues"
+Documentation = "https://github.com/aida-ai/aida-taskforge-agent"
+
+[tool.setuptools]
+packages = ["aida_agent_app"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+aida_agent_app = ["**/*.json", "**/*.js", "**/*.css", "**/*.html", "**/*.md", "**/*.txt"]

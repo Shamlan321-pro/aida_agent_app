@@ -1,0 +1,8 @@
+{
+  "css/aida_agent.css": [
+    "aida_agent_app/public/css/aida_agent.css"
+  ],
+  "js/aida_agent.js": [
+    "aida_agent_app/public/js/aida_agent.js"
+  ]
+}

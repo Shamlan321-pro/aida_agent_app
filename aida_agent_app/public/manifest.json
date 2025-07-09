@@ -1,0 +1,13 @@
+{
+  "name": "AIDA Agent App",
+  "version": "1.0.0",
+  "description": "Full AIDA AI Agent with Onboarding and Lead Generation",
+  "assets": {
+    "css": [
+      "css/aida_agent.css"
+    ],
+    "js": [
+      "js/aida_agent.js"
+    ]
+  }
+}
