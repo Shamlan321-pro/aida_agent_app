@@ -212,7 +212,7 @@
         </button>
         {% endif %}
         
-        <a href="/app/aida-agent-settings" class="aida-action-btn secondary">
+        <a href="/app/aida-agent-settings/AIDA%20Agent%20Settings" class="aida-action-btn secondary">
             <i class="fa fa-cog"></i>
             Settings
         </a>
@@ -238,28 +238,62 @@ frappe.ready(() => {
     }, 1000);
 });
 
-// Fallback functions if AIDA Agent is not loaded
+// Enhanced button functions with better error handling
 function openAidaChat() {
-    if (window.openAidaChat) {
+    console.log('openAidaChat called');
+    if (window.openAidaChat && typeof window.openAidaChat === 'function') {
         window.openAidaChat();
+    } else if (window.aidaAgent) {
+        window.aidaAgent.openChat();
     } else {
-        frappe.msgprint({
-            title: 'AIDA Agent Loading',
-            message: 'AIDA Agent is still loading. Please try again in a moment.',
-            indicator: 'blue'
-        });
+        // Try to initialize if not available
+        if (typeof initializeAidaAgent === 'function') {
+            initializeAidaAgent();
+            setTimeout(() => {
+                if (window.aidaAgent) {
+                    window.aidaAgent.openChat();
+                } else {
+                    showAidaError('AIDA Agent failed to initialize. Please refresh the page.');
+                }
+            }, 1000);
+        } else {
+            showAidaError('AIDA Agent is not available. Please refresh the page.');
+        }
     }
 }
 
 function openAidaLeads() {
-    if (window.openAidaLeads) {
+    console.log('openAidaLeads called');
+    if (window.openAidaLeads && typeof window.openAidaLeads === 'function') {
         window.openAidaLeads();
+    } else if (window.aidaAgent) {
+        window.aidaAgent.openLeadPanel();
     } else {
+        // Try to initialize if not available
+        if (typeof initializeAidaAgent === 'function') {
+            initializeAidaAgent();
+            setTimeout(() => {
+                if (window.aidaAgent) {
+                    window.aidaAgent.openLeadPanel();
+                } else {
+                    showAidaError('AIDA Agent failed to initialize. Please refresh the page.');
+                }
+            }, 1000);
+        } else {
+            showAidaError('AIDA Agent is not available. Please refresh the page.');
+        }
+    }
+}
+
+function showAidaError(message) {
+    if (typeof frappe !== 'undefined' && frappe.msgprint) {
         frappe.msgprint({
-            title: 'AIDA Agent Loading',
-            message: 'AIDA Agent is still loading. Please try again in a moment.',
-            indicator: 'blue'
+            title: 'AIDA Agent Error',
+            message: message,
+            indicator: 'red'
         });
+    } else {
+        alert('AIDA Agent Error: ' + message);
     }
 }
 </script>

@@ -545,20 +545,53 @@ class AidaAgent {
 // Initialize AIDA Agent when page loads
 let aidaAgent;
 
-frappe.ready(() => {
-    // Only initialize in desk (not in website)
-    if (frappe.boot && frappe.boot.user && frappe.boot.user.name !== 'Guest') {
-        aidaAgent = new AidaAgent();
-        
-        // Make it globally accessible
-        window.aidaAgent = aidaAgent;
+// Function to initialize AIDA Agent
+function initializeAidaAgent() {
+    if (!window.aidaAgent) {
+        try {
+            window.aidaAgent = new AidaAgent();
+            console.log('AIDA Agent initialized successfully');
+        } catch (error) {
+            console.error('Failed to initialize AIDA Agent:', error);
+        }
     }
-});
+}
+
+// Initialize when frappe is ready
+if (typeof frappe !== 'undefined') {
+    frappe.ready(() => {
+        // Check if user is logged in (works in both desk and web)
+        if (frappe.session && frappe.session.user && frappe.session.user !== 'Guest') {
+            initializeAidaAgent();
+        } else if (frappe.boot && frappe.boot.user && frappe.boot.user.name !== 'Guest') {
+            initializeAidaAgent();
+        }
+    });
+} else {
+    // Fallback for when frappe is not available yet
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            if (typeof frappe !== 'undefined' && frappe.session && frappe.session.user && frappe.session.user !== 'Guest') {
+                initializeAidaAgent();
+            }
+        }, 1000);
+    });
+}
 
 // Expose utility functions
 window.openAidaChat = function() {
     if (window.aidaAgent) {
         window.aidaAgent.openChat();
+    } else {
+        console.log('AIDA Agent not initialized, attempting to initialize...');
+        initializeAidaAgent();
+        setTimeout(() => {
+            if (window.aidaAgent) {
+                window.aidaAgent.openChat();
+            } else {
+                alert('AIDA Agent is not available. Please refresh the page and try again.');
+            }
+        }, 1000);
     }
 };
 
@@ -568,11 +601,34 @@ window.sendAidaMessage = function(message) {
         setTimeout(() => {
             window.aidaAgent.sendQuickMessage(message);
         }, 500);
+    } else {
+        console.log('AIDA Agent not initialized, attempting to initialize...');
+        initializeAidaAgent();
+        setTimeout(() => {
+            if (window.aidaAgent) {
+                window.aidaAgent.openChat();
+                setTimeout(() => {
+                    window.aidaAgent.sendQuickMessage(message);
+                }, 500);
+            } else {
+                alert('AIDA Agent is not available. Please refresh the page and try again.');
+            }
+        }, 1000);
     }
 };
 
 window.openAidaLeads = function() {
     if (window.aidaAgent) {
         window.aidaAgent.openLeadPanel();
+    } else {
+        console.log('AIDA Agent not initialized, attempting to initialize...');
+        initializeAidaAgent();
+        setTimeout(() => {
+            if (window.aidaAgent) {
+                window.aidaAgent.openLeadPanel();
+            } else {
+                alert('AIDA Agent is not available. Please refresh the page and try again.');
+            }
+        }, 1000);
     }
 };
